@@ -5,12 +5,13 @@ using Xunit;
 
 public class MastermindTest
 {
-    [Fact]
-    public void Test1()
+    [Theory]
+    [InlineData(new[] { PinColor.Yellow }, new[] { PinColor.Yellow }, 1, 0)]
+    [InlineData(new[] { PinColor.Yellow }, new[] { PinColor.Blue }, 0, 0)]
+    [InlineData(new[] { PinColor.Yellow, PinColor.Blue }, new[] { PinColor.Blue, PinColor.Green }, 0, 1)]
+    [InlineData(new[] { PinColor.Yellow, PinColor.Blue, PinColor.Green }, new[] { PinColor.Yellow, PinColor.Green, PinColor.Pink }, 1, 1)]
+    public void Test1(PinColor[] a, PinColor[] b, int c, int d)
     {
-        var mastermind = new Mastermind();
-        var result = mastermind.Do(new[] { PinColor.Yellow }, new[] { PinColor.Yellow });
-
-        result.Should().Be((1, 0));
+        new Mastermind().Do(a, b).Should().Be((c,d));
     }
 }
