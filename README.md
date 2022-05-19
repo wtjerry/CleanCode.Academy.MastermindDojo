@@ -5,8 +5,8 @@
 > dotnet test
 
 ## Rules
-- Driver: schreibt Code, kommuniziert mit Navigator
-- Navigator: ist das Hirn von Driver, kommuniziert mit Driver
-- Publikum: Gibt KEINEN input
-- 2 minuten cycles, danach wird Navigator zu Driver und eine neue Person wird Navigator
-- Ziel: alle sind 2x Driver & 2x Navigator. Falls es nicht klappt haben wir morgen mehr Zeit.
+- Driver: writes code, communicates with Navigator
+- Navigator: is the brain, thinks ahead a tiny bit, communicates with Driver
+- Audience: is quiet, no input
+- 2 minute cycles, afterwards the Navigator becomes the Driver and a new person becomes the Navigator
+- Goal: everyone was a Driver and Navigator twice.
