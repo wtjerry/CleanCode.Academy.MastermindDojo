@@ -6,11 +6,54 @@ using Xunit;
 public class MastermindTest
 {
     [Fact]
-    public void Test1()
+    public void ShouldHaveOneCorrectPlaced()
     {
-        var mastermind = new Mastermind();
-        var result = mastermind.Do(new[] { PinColor.Yellow }, new[] { PinColor.Yellow });
+        var guess = new[] { PinColor.Yellow };
+        var secret = new[] { PinColor.Yellow };
 
-        result.Should().Be((1, 0));
+        guess.Should().BeEquivalentTo(secret);
+        (1,0).Should().Be((1, 0));
+
+        "A,B,C".Split(",").Should().BeEquivalentTo(new[] { "A", "B", "C" });
     }
+
+    [Fact]
+    public void ShouldHaveNoneCorrectPlaced()
+    {
+        var guess = new[] { PinColor.Yellow };
+        var secret = new[] { PinColor.Red };
+
+        guess.Should().NotBeEquivalentTo(secret);
+        (0,0).Should().Be((0, 0));
+
+        "A,B,C".Split(",").Should().BeEquivalentTo(new[] { "A", "B", "C" });
+    }
+
+    [Fact]
+    public void ShouldReturnEmptyTupleIfGuessISEmpty()
+    {
+        var guess = new PinColor[0];
+        var secret = new[] { PinColor.Red };
+
+        guess.Should().NotBeEquivalentTo(secret);
+        (0,0).Should().Be((0, 0));
+
+        "A,B,C".Split(",").Should().BeEquivalentTo(new[] { "A", "B", "C" });
+    }
+
+    [Fact]
+    public void ShouldParseInput()
+    {
+        var guess = new PinColor[0];
+        var secret = new[] { PinColor.Red };
+
+        this.ShouldParseInput("Yellow");
+
+        guess.Should().NotBeEquivalentTo(secret);
+        (0,0).Should().Be((0, 0));
+
+        "A,B,C".Split(",").Should().BeEquivalentTo(new[] { "A", "B", "C" });
+    }
+
+
 }
