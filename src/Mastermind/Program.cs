@@ -11,7 +11,7 @@ public static class Program
     // ]
     public static int Main(string[] args)
     {
-        Parser.Parse(args);
+        var (guess, secret) = Parser.Parse(args);
 
         Console.WriteLine(string.Join("\n", args));
 

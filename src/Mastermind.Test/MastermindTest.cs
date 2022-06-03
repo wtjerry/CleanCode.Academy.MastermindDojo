@@ -44,15 +44,10 @@ public class MastermindTest
     [Fact]
     public void ShouldParseInput()
     {
-        var guess = new PinColor[0];
-        var secret = new[] { PinColor.Red };
+        var parseResult = Parser.Parse(new string[]{"yellow,blue", "blue,red"});
 
-        this.ShouldParseInput("Yellow");
-
-        guess.Should().NotBeEquivalentTo(secret);
-        (0,0).Should().Be((0, 0));
-
-        "A,B,C".Split(",").Should().BeEquivalentTo(new[] { "A", "B", "C" });
+        parseResult.Guess.Should().BeEquivalentTo(new[] { "yellow", "blue" });
+        parseResult.Secret.Should().BeEquivalentTo(new[] { "blue", "red" });
     }
 
 

@@ -2,7 +2,13 @@
 
 public class Mastermind
 {
+    public static (int correctGuessed, int missplacedGuessed) Compare(
+        string[] Guess,
+        string[] Secret)
+    {
 
+        return (0, 0);
+    }
 }
 
 public class Parser
