@@ -1,6 +1,6 @@
 ﻿namespace CleanCode.Academy.MastermindDojo.Mastermind;
 
-public enum PinColor
+public enum PegColor
 {
     Blue,
     Red,
