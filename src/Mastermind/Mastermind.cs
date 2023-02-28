@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Mastermind
 {
@@ -41,20 +42,31 @@ public class Mastermind
             else secretMap.Add(secret[i], new List<int>(){i});
         }
 
-        foreach (var singelGuess in guessMap)
+        (int exactMatch, int colorMatch) result;
+        // min (l1-x, l2-x)
+        foreach (var singleGuess in guessMap)
         {
-            var numPostionMatch = GetPositionCorrect(singelGuess);
-        }
 
-        (int i = 0; i < secret.Length; i++)
-        {
-            for (var j = 0; j < guess.Length; j++)
+            var key = singleGuess.Key;
+            if (secretMap.ContainsKey(key))
             {
-                colorMatchCount += (i != j && secret[i] == guess[j]) ? 1: 0;
+                var matchEquals  = secretMap[singleGuess.Key].Intersect(guessMap[singleGuess.Key]).Count();
+                result.exactMatch += matchEquals;
+                result.colorMatch += Math.Min(
+                    secretMap[singleGuess.Key].Count - matchEquals,
+                    guessMap[singleGuess.Key].Count - matchEquals);
             }
-
-            positionMatchCount += secret[i] == guess[i] ? 1 : 0;
         }
+
+        // (int i = 0; i < secret.Length; i++)
+        // {
+        //     for (var j = 0; j < guess.Length; j++)
+        //     {
+        //         colorMatchCount += (i != j && secret[i] == guess[j]) ? 1: 0;
+        //     }
+        //
+        //     positionMatchCount += secret[i] == guess[i] ? 1 : 0;
+        // }
 
         return (positionMatchCount, colorMatchCount);
     }
