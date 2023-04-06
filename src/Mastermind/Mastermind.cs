@@ -9,39 +9,57 @@ using System.Net.NetworkInformation;
 public class Mastermind
 {
     public (int, int) Do(
-        PinColor[] pinColors,
-        PinColor[] pinColors2)
+        PinColor[] guessedPecColors,
+        PinColor[] secretPecColors)
     {
         var wellPlaced = 0;
         var missPlaced = 0;
-        var foundColors = new Dictionary<int, PinColor>();
+        //var foundColors = new Dictionary<int, PinColor>();
 
-        if (!pinColors.Length.Equals(pinColors2.Length))
+        if (!guessedPecColors.Length.Equals(secretPecColors.Length))
         {
             throw new Exception("No valid list colors");
         }
 
-        if (pinColors.SequenceEqual(pinColors2))
+        if (guessedPecColors.SequenceEqual(secretPecColors))
         {
-            wellPlaced = (pinColors.Length);
+            wellPlaced = (guessedPecColors.Length);
             return (wellPlaced, missPlaced);
         }
 
         var wellPlacedIndexes = new List<PinColor>();
-        for (int i = 0; i <= pinColors.Length; i++)
+        for (int i = 0; i < guessedPecColors.Length; i++)
         {
-            if (pinColors[i] == pinColors2[i])
+            if (guessedPecColors[i] == secretPecColors[i])
             {
-                foundColors.Add(i, pinColors[i]);
+                // foundColors.Add(i, pinColors[i]);
                 wellPlaced++;
+                continue;
             }
-            // for (int j = 0; j < pinColors.Length; j++)
+
+            if (Array.IndexOf(guessedPecColors, secretPecColors[i]) != -1)
+            {
+                missPlaced++;
+            }
+            // else
             // {
-            //     if (i == j && pinColors[i].Equals(pinColors[j]))
-            //     {
-            //         wellPlaced++;
-            //     }
-            //
+                // var index = Array.IndexOf(
+                //     pinColors2,
+                //     pinColors[i]);
+                // if (index != -1 && pinColors[i] != pinColors2[index])
+                // {
+                //     missPlaced++;
+                // }
+
+
+                // for (int j = 0; j < pinColors.Length; j++)
+                // {
+                //     if (i == j && pinColors[i].Equals(pinColors[j]))
+                //     {
+                //         wellPlaced++;
+                //     }
+                //
+                // }
             // }
         }
 
