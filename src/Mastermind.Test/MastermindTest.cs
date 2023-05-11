@@ -13,4 +13,12 @@ public class MastermindTest
 
         result.Should().Be((1, 0));
     }
+    [Fact]
+    public void TestFourColors()
+    {
+        var mastermind = new Mastermind();
+        var result = mastermind.Do(new[] { PinColor.Yellow, PinColor.Yellow, PinColor.Red, PinColor.Red }, new[] { PinColor.Pink, PinColor.Red, PinColor.Red, PinColor.Pink });
+
+        result.Should().Be((1, 1));
+    }
 }
