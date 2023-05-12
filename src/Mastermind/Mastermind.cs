@@ -10,9 +10,10 @@ public class Mastermind
     {
         int wellplaced = 0;
         int misplaced = 0;
+        int colorCount = Enum.GetValues(typeof(PinColor)).Length;
 
-        var UnmatchedSecret = new Dictionary<PinColor, int>();
-        var UnmatchedGuess = new Dictionary<PinColor, int>();
+        var UnmatchedSecret = new int[colorCount];
+        var UnmatchedGuess = new int[colorCount];
 
         for (int i = 0; i < secret.Length; ++i)
         {
@@ -22,34 +23,18 @@ public class Mastermind
             }
             else
             {
-                if (UnmatchedSecret.ContainsKey(secret[i]))
-                    UnmatchedSecret[secret[i]] += 1;
-                else
-                {
-                    UnmatchedSecret.Add(secret[i], 1);
-                }
-
-                if (UnmatchedGuess.ContainsKey(secret[i]))
-                    UnmatchedGuess[secret[i]] += 1;
-                else
-                {
-                    UnmatchedGuess.Add(secret[i], 1);
-                }
+                UnmatchedSecret[(int)secret[i]]++;
+                UnmatchedGuess[(int)guess[i]]++;
             }
         }
 
-        foreach (var currentElement in UnmatchedSecret)
+
+        for(int i = 0;
+        i < colorCount; i++)
         {
-            if (UnmatchedGuess.ContainsKey(currentElement.Key))
-            {
-                var min = Math.Min(currentElement.Value, UnmatchedGuess[currentElement.Key]);
+            var min = Math.Min(currentElement.Value, UnmatchedGuess[currentElement.Key]);
                 misplaced += min;
-            }
         }
-
-        //TODO handle misplaced
-
-
 
         return (wellplaced, misplaced);
     }
