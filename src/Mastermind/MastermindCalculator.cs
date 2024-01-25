@@ -1,9 +1,24 @@
-﻿namespace CleanCode.Academy.MastermindDojo.Mastermind;
+﻿using System.Linq;
+
+namespace CleanCode.Academy.MastermindDojo.Mastermind;
 
 public class MastermindCalculator
 {
-    public (int, int) Do(PinColor[] pinColors, PinColor[] pinColors2)
+    public (int, int) Compare(PinColor[] pinColorsGuess, PinColor[] pinColorsSecret)
     {
-        return (1, 0);
+        var rightGuess = 0;
+        var rightMisplacedGuess = 0;
+        for (var i = 0; i < pinColorsGuess.Length; i++)
+        {
+            if (pinColorsGuess[i] == pinColorsSecret[i])
+            {
+                rightGuess++;
+            }
+            else if(pinColorsSecret.Contains(pinColorsGuess[i]))
+            {
+                rightMisplacedGuess++;
+            }
+        }
+        return (rightGuess, rightMisplacedGuess);
     }
 }
