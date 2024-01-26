@@ -4,13 +4,11 @@ namespace CleanCode.Academy.MastermindDojo.Mastermind;
 
 public class MastermindCalculator
 {
-    public (int, int) Compare(PinColor[] pinColorsGuess, PinColor[] pinColorsSecret)
+    public static (int, int) Compare(PinColor[] pinColorsGuess, PinColor[] pinColorsSecret)
     {
-        // array bool  // guessIndex -> Right/MisplacedGuess
-        // bool default is false,
-        var rightMisplacedGuesses = new bool[pinColorsGuess.Length];
         var rightGuess = 0;
-        var rightMisplacedGuess = 0;
+        var rightMisplacedGuessCount = 0;
+        var rightMisplacedGuessesLength = new bool[pinColorsGuess.Length];
         for (var i = 0; i < pinColorsGuess.Length; i++)
         {
             if (pinColorsGuess[i] == pinColorsSecret[i])
@@ -19,26 +17,25 @@ public class MastermindCalculator
             }
             else if(pinColorsSecret.Contains(pinColorsGuess[i]))
             {
-                for (var j = 0; j < rightMisplacedGuesses.Length; j++)
-                {
-                    if (pinColorsGuess[i] == pinColorsSecret[j] && rightMisplacedGuesses[j] == false)
-                    {
-                        rightMisplacedGuesses[j] = true;
-                    }
-
-                    if (rightMisplacedGuesses[j])
-                    {
-                        rightMisplacedGuess++;
-                        break;
-                    }
-                }
-                // loop item from array(secret)
-                // array (secret) = true
-                // if item=true
-                //    rightMisplacedGuess++
-                //    stop loop through array
+                rightMisplacedGuessCount = FindRightMisplacedGuess(pinColorsGuess, pinColorsSecret, i, rightMisplacedGuessCount, rightMisplacedGuessesLength);
             }
         }
-        return (rightGuess, rightMisplacedGuess);
+        return (rightGuess, rightMisplacedGuessCount);
+    }
+
+    private static int FindRightMisplacedGuess(PinColor[] pinColorsGuess, PinColor[] pinColorsSecret, int i, int rightMisplacedGuess, bool[] rightMisplacedGuessesLength)
+    {
+        for (var j = 0; j < rightMisplacedGuessesLength.Length; j++)
+        {
+            var isMisplacedGuess = pinColorsGuess[i] == pinColorsSecret[j] && rightMisplacedGuessesLength[j] == false;
+            if (isMisplacedGuess)
+            {
+                rightMisplacedGuessesLength[j] = true;
+                rightMisplacedGuess++;
+                break;
+            }
+        }
+
+        return rightMisplacedGuess;
     }
 }
